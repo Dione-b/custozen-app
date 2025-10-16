@@ -51,12 +51,6 @@ export const ResponsiveLayout = ({
           title: "Produtos",
           subtitle: "Suas fichas técnicas e precificação"
         };
-      case "creditos":
-        return { 
-          showBranding: false,
-          title: "Créditos Zen",
-          subtitle: "Recarregue sua tranquilidade"
-        };
       default:
         return { showBranding: true };
     }
@@ -66,7 +60,6 @@ export const ResponsiveLayout = ({
     { id: "inicio", label: "Início", icon: TrendingUp },
     { id: "insumos", label: "Insumos", icon: Package },
     { id: "produtos", label: "Produtos", icon: Calculator },
-    { id: "creditos", label: "Créditos", icon: Leaf },
   ];
 
   if (isMobile) {
@@ -74,10 +67,6 @@ export const ResponsiveLayout = ({
       <div className="min-h-screen bg-background pb-tab-bar">
         <MobileHeader {...getHeaderProps()} />
         
-        {/* Credits Indicator - Mobile */}
-        <div className="fixed top-4 right-4 z-40">
-          <CreditsIndicator credits={42} />
-        </div>
         
         <main className="min-h-[calc(100vh-200px)] pb-safe-area">
           {children}
@@ -108,12 +97,6 @@ export const ResponsiveLayout = ({
             label="Produtos"
             isActive={activeTab === "produtos"}
             onClick={() => setActiveTab("produtos")}
-          />
-          <TabBarItem
-            icon={<Leaf />}
-            label="Créditos"
-            isActive={activeTab === "creditos"}
-            onClick={() => setActiveTab("creditos")}
           />
         </TabBar>
 

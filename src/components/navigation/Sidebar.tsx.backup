@@ -1,0 +1,79 @@
+import React from 'react';
+import { MessageSquare, Package, List, BarChart2, Settings, SunMedium } from 'lucide-react';
+import { AppView } from '@/components/layout/AppLayout';
+
+interface Props {
+  active: AppView;
+  onNavigate: (view: AppView) => void;
+  collapsed?: boolean;
+  onToggle?: (next: boolean) => void;
+}
+
+const Sidebar: React.FC<Props> = ({ active, onNavigate, collapsed = false, onToggle }) => {
+  const items: { id: AppView; label: string; Icon: any }[] = [
+    { id: 'chat', label: 'Assistente Zen', Icon: MessageSquare },
+    { id: 'ingredients', label: 'Meus Ingredientes', Icon: Package },
+    { id: 'products', label: 'Meus Produtos', Icon: List },
+    { id: 'reports', label: 'Relatórios', Icon: BarChart2 },
+    { id: 'settings', label: 'Configurações', Icon: Settings }
+  ];
+
+  return (
+    <aside
+      className={`bg-transparent py-2 transition-all duration-200 flex flex-col ${
+        collapsed ? 'w-20' : 'w-full'
+      }`}
+      aria-label="Sidebar Navigation"
+      role="navigation"
+    >
+      <div className={`${collapsed ? 'px-3' : 'px-0'}`}>
+        <nav className="space-y-1" aria-label="Primary Navigation">
+          {items.map((it) => {
+            const isActive = it.id === active;
+            return (
+              <button
+                key={it.id}
+                onClick={() => onNavigate(it.id)}
+                className={`w-full flex items-center gap-3 rounded-lg p-2 hover:bg-gray-50 transition-colors text-sm ${
+                  isActive ? 'bg-[#EAF6EA] text-[#2F6F2F] font-semibold' : 'text-gray-700'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+                aria-label={it.label}
+              >
+                <it.Icon className="w-5 h-5 flex-shrink-0" />
+                <span className={`${collapsed ? 'hidden' : ''}`}>{it.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="mt-6">
+          <button
+            onClick={() => onToggle && onToggle(!collapsed)}
+            className="w-full flex items-center gap-3 rounded-lg p-2 hover:bg-gray-50 transition-colors text-sm text-gray-700"
+            aria-pressed={collapsed}
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            {!collapsed && <span>Alternar Visualização</span>}
+          </button>
+        </div>
+
+        {!collapsed && (
+          <div className="mt-auto px-0">
+            <p className="text-xs text-gray-500">© CustoZen</p>
+          </div>
+        )}
+      </div>
+    </aside>
+  );
+
+export default Sidebar;

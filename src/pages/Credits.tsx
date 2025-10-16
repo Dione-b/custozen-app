@@ -86,35 +86,42 @@ const Credits = () => {
   const currentCredits = 42;
 
   return (
-    <div className="space-y-6 pb-6">
+    <div className="space-y-6 pb-6 px-4 sm:px-0">
       {/* Header com Saldo */}
-      <div className="text-center">
-        <div className="inline-flex items-center gap-4 bg-gradient-card p-8 rounded-3xl shadow-[var(--shadow-elevated)] border-2 border-primary/10">
-          <div className="p-4 bg-gradient-primary rounded-2xl">
-            <Leaf className="h-10 w-10 text-primary-foreground" />
-          </div>
-          <div>
-            <p className="text-4xl font-bold text-primary mb-1">{currentCredits}</p>
-            <p className="text-lg text-muted-foreground font-medium">Créditos Zen disponíveis</p>
+      <div className="flex justify-center">
+        <div className="w-full max-w-4xl">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 bg-gradient-card p-6 sm:p-8 rounded-3xl shadow-[var(--shadow-elevated)] border-2 border-primary/10">
+            <div className="p-3 sm:p-4 bg-gradient-primary rounded-2xl">
+              <Leaf className="h-8 w-8 sm:h-10 sm:w-10 text-primary-foreground" />
+            </div>
+            <div className="text-center sm:text-left w-full">
+              <p className="text-3xl sm:text-4xl font-bold text-primary mb-0">{currentCredits}</p>
+              <p className="text-sm sm:text-lg text-muted-foreground font-medium">Créditos Zen disponíveis</p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Tabs de Navegação */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6">
-          <TabsTrigger value="buy" className="flex items-center gap-2">
-            <ShoppingCart className="h-4 w-4" />
-            Comprar
-          </TabsTrigger>
-          <TabsTrigger value="history" className="flex items-center gap-2">
-            <History className="h-4 w-4" />
-            Histórico
-          </TabsTrigger>
-          <TabsTrigger value="pro" className="flex items-center gap-2">
-            <Crown className="h-4 w-4" />
-            Pro
-          </TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 mb-6 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3">
+          {/* Make Tabs horizontally scrollable on very small screens (no negative margins) */}
+          <div className="col-span-3">
+            <div className="flex gap-2 px-0 sm:px-0 overflow-x-auto scrollbar-none">
+              <TabsTrigger value="buy" className="flex-shrink-0 flex items-center gap-2 min-w-[110px]">
+                <ShoppingCart className="h-4 w-4" />
+                Comprar
+              </TabsTrigger>
+              <TabsTrigger value="history" className="flex-shrink-0 flex items-center gap-2 min-w-[110px]">
+                <History className="h-4 w-4" />
+                Histórico
+              </TabsTrigger>
+              <TabsTrigger value="pro" className="flex-shrink-0 flex items-center gap-2 min-w-[110px]">
+                <Crown className="h-4 w-4" />
+                Pro
+              </TabsTrigger>
+            </div>
+          </div>
         </TabsList>
 
         {/* Tab de Comprar Fichas */}
@@ -128,7 +135,7 @@ const Credits = () => {
               Recarregue sua tranquilidade conforme a necessidade
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {creditPackages.map((pack) => (
                 <Card key={pack.id} className={cn(
                   "relative overflow-hidden transition-all duration-200",
@@ -146,21 +153,21 @@ const Credits = () => {
                       {pack.savings}
                     </Badge>
                   )}
-                  <CardContent className="p-6 text-center">
-                    <div className="p-4 bg-gradient-warm rounded-2xl w-fit mx-auto mb-4">
-                      <Leaf className="h-8 w-8 text-accent" />
+                  <CardContent className="p-4 sm:p-6 text-center">
+                    <div className="p-3 sm:p-4 bg-gradient-warm rounded-2xl w-fit mx-auto mb-3">
+                      <Leaf className="h-7 w-7 sm:h-8 sm:w-8 text-accent" />
                     </div>
-                    <h4 className="font-bold text-2xl mb-1">{pack.fichas} Créditos Zen</h4>
-                    <p className="text-sm text-muted-foreground mb-4">{pack.description}</p>
-                    <div className="mb-6">
-                      <p className="text-3xl font-bold text-primary">R$ {pack.price}</p>
+                    <h4 className="font-bold text-xl sm:text-2xl mb-1">{pack.fichas} Créditos Zen</h4>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3">{pack.description}</p>
+                    <div className="mb-4">
+                      <p className="text-2xl sm:text-3xl font-bold text-primary">R$ {pack.price}</p>
                       <p className="text-xs text-muted-foreground">
                         R$ {(parseFloat(pack.price.replace(',', '.')) / pack.fichas).toFixed(2).replace('.', ',')} por crédito
                       </p>
                     </div>
                     <Button 
-                      className="w-full bg-gradient-primary text-primary-foreground border-0 hover:bg-gradient-primary/90"
-                      size="lg"
+                      className="w-full bg-gradient-primary text-primary-foreground border-0 hover:bg-gradient-primary/90 py-2"
+                      size="sm"
                     >
                       Comprar Agora
                     </Button>
@@ -185,7 +192,7 @@ const Credits = () => {
             <div className="space-y-3">
               {recentActivity.map((activity, index) => (
                 <Card key={index} className="hover:shadow-[var(--shadow-card)] transition-all duration-200">
-                  <CardContent className="p-4">
+                  <CardContent className="p-3 sm:p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3">
                         <div className={cn(
@@ -235,7 +242,7 @@ const Credits = () => {
         <TabsContent value="pro" className="space-y-6">
           <Card className="border-2 border-accent bg-gradient-to-br from-accent/5 to-accent/10 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-accent opacity-10 rounded-full -translate-y-16 translate-x-16"></div>
-            <CardHeader className="text-center pb-6">
+            <CardHeader className="text-center pb-4 sm:pb-6">
               <div className="p-4 bg-gradient-accent rounded-2xl w-fit mx-auto mb-4">
                 <Crown className="h-10 w-10 text-accent-foreground" />
               </div>
@@ -246,7 +253,7 @@ const Credits = () => {
                 Uso ilimitado de todas as funcionalidades de IA
               </p>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 sm:space-y-6">
               {/* Preço */}
               <div className="text-center py-6 bg-white/50 rounded-2xl">
                 <p className="text-4xl font-bold text-accent mb-1">R$ 29,90</p>

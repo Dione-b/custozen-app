@@ -2,7 +2,6 @@ import { useState } from "react";
 import Dashboard from "@/components/Dashboard";
 import Insumos from "@/components/Insumos";
 import Produtos from "@/components/Produtos";
-import Credits from "@/pages/Credits";
 import { ResponsiveLayout } from "@/components/ResponsiveLayout";
 
 const Index = () => {
@@ -16,8 +15,6 @@ const Index = () => {
         return <Insumos />;
       case "produtos":
         return <Produtos />;
-      case "creditos":
-        return <Credits />;
       default:
         return <Dashboard />;
     }
